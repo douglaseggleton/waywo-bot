@@ -7,7 +7,7 @@ const app = new App({
 });
 
 const generateMessage = (user) => `
-  BOOM BOOM BOOM Let me hear you say WAYWO... WAYWO! Who’s up you ask? <@${user}> is up! Show us what you’re working on!
+  BOOM BOOM BOOM Let me hear you say WAYWO... WAYWO! <@${user}>, show us what you’re working on!
 `;
 
 exports.handler = async () => {

@@ -9,13 +9,24 @@
       "description": "Slack bot token associated with a bot installed on a workspace."
     },
     "SLACK_SIGNING_SECRET": {
-      "description": "Slack signing secret used to check authenticity of requrests."
+      "description": "Slack signing secret used to check authenticity of requests."
+    },
+    "SLACK_CHANNEL": {
+      "description": "Slack channel that the bot is a member of."
     },
     "SCHEDULE": {
-      "description": "Cron schedule to select a user at random."
+      "description": "Cron schedule to select a user at random. Defaults to Mon-Fri, 9am.",
+      "required": false
     },
     "TIMEZONE": {
-      "description": "Timezone to execute cron schedule."
+      "description": "Timezone to execute cron schedule. Defaults to Europe/London.",
+      "required": false
+    }
+  },
+  "formation": {
+    "clock": {
+      "quantity": 1,
+      "size": "free"
     }
   }
 }
