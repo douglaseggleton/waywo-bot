@@ -1,21 +1,37 @@
-const slack = require('slack');
-const random = require('random');
+const { App } = require("@slack/bolt");
+const random = require("random");
 
-const channel = process.env.SLACK_ROOM;
-const token = process.env.SLACK_TOKEN;
+const app = new App({
+  token: process.env.SLACK_BOT_TOKEN,
+  signingSecret: process.env.SLACK_SIGNING_SECRET,
+});
 
 const generateMessage = (user) => `
-  BOOM BOOM BOOM LET ME HEAR YOU SAY WAYWO, WAYWO! Who’s up you ask?! <@${user}> is up! Show us what you’re working on!
+  BOOM BOOM BOOM Let me hear you say WAYWO... WAYWO! Who’s up you ask? <@${user}> is up! Show us what you’re working on!
 `;
 
 exports.handler = async () => {
-  await slack.channels.info({
-    channel,
-    token
-  }).then((res) => {
-    const members = res.channel.members;
-    const randomIndex = random.int(0, members.length - 1);
-    return res.channel.members[randomIndex];
-  })
-  .then((user) => slack.chat.postMessage({token, channel, text: generateMessage(user)}));
-}
+  const botId = await (await app.client.users.profile.get()).profile["bot_id"];
+  const profile = await app.client.bots.info({ bot: botId });
+  const userId = profile.bot["user_id"];
+
+  const channel = await app.client.conversations
+    .list()
+    .then((list) =>
+      list.channels.find(
+        (channel) => channel.name === process.env.SLACK_CHANNEL
+      )
+    );
+
+  const members = await (
+    await app.client.conversations.members({ channel: channel.id })
+  ).members.filter((member) => member !== userId);
+
+  const randomIndex = random.int(0, members.length - 1);
+  const user = members[randomIndex];
+
+  app.client.chat.postMessage({
+    channel: channel.id,
+    text: generateMessage(user),
+  });
+};
