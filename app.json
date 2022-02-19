@@ -3,5 +3,13 @@
   "description": "Slackbot to share what individuals are working on across an organisation",
   "repository": "https://github.com/douglaseggleton/waywo-bot",
   "logo": "https://raw.githubusercontent.com/douglaseggleton/waywo-bot/master/waywo-bot.png",
-  "keywords": ["node", "slack"]
+  "keywords": ["node", "slack"],
+  "env": {
+    "SLACK_BOT_TOKEN": {
+      "description": "Slack bot token associated with a bot installed on a workspace."
+    },
+    "SLACK_SIGNING_SECRET": {
+      "description": "Slack signing secret used to check authenticity of requrests."
+    }
+  }
 }
