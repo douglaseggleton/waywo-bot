@@ -11,5 +11,8 @@
   "dependencies": {
     "@slack/bolt": "^3.9.0",
     "random": "^2.1.1"
+  },
+  "optionalDependencies": {
+    "cron": "^1.8.2"
   }
 }

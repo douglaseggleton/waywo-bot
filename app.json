@@ -10,6 +10,12 @@
     },
     "SLACK_SIGNING_SECRET": {
       "description": "Slack signing secret used to check authenticity of requrests."
+    },
+    "SCHEDULE": {
+      "description": "Cron schedule to select a user at random."
+    },
+    "TIMEZONE": {
+      "description": "Timezone to execute cron schedule."
     }
   }
 }
